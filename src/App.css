@@ -85,3 +85,32 @@ h1 {
 .tabla-alumnos tbody tr:hover {
   background-color: #f5f5ff;
 }
+
+
+/* ...todo lo anterior se mantiene... */
+
+/* Buscador */
+.barra-buscador {
+  margin-bottom: 1.5rem;
+}
+
+.barra-buscador input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.barra-buscador input:focus {
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+.sin-resultados {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 1.5rem;
+}

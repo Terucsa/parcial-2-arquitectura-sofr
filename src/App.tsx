@@ -29,6 +29,7 @@ const formVacio = {
 function App() {
   const [alumnos, setAlumnos] = useState<Alumno[]>(alumnosIniciales)
   const [form, setForm] = useState(formVacio)
+  const [busqueda, setBusqueda] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -55,6 +56,11 @@ function App() {
     setAlumnos((prev) => [...prev, nuevoAlumno])
     setForm(formVacio)
   }
+
+  // 🔍 Filtro por nombre (case-insensitive)
+  const alumnosFiltrados = alumnos.filter((alumno) =>
+      alumno.nombre.toLowerCase().includes(busqueda.toLowerCase().trim())
+  )
 
   return (
       <div className="app">
@@ -104,6 +110,15 @@ function App() {
           </form>
         </section>
 
+        <section className="barra-buscador">
+          <input
+              type="text"
+              placeholder="Buscar por nombre..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+          />
+        </section>
+
         <table className="tabla-alumnos">
           <thead>
           <tr>
@@ -116,16 +131,24 @@ function App() {
           </tr>
           </thead>
           <tbody>
-          {alumnos.map((alumno) => (
-              <tr key={alumno.id}>
-                <td>{alumno.id}</td>
-                <td>{alumno.nombre}</td>
-                <td>{alumno.apellido}</td>
-                <td>{alumno.edad}</td>
-                <td>{alumno.email}</td>
-                <td>{alumno.carrera}</td>
+          {alumnosFiltrados.length > 0 ? (
+              alumnosFiltrados.map((alumno) => (
+                  <tr key={alumno.id}>
+                    <td>{alumno.id}</td>
+                    <td>{alumno.nombre}</td>
+                    <td>{alumno.apellido}</td>
+                    <td>{alumno.edad}</td>
+                    <td>{alumno.email}</td>
+                    <td>{alumno.carrera}</td>
+                  </tr>
+              ))
+          ) : (
+              <tr>
+                <td colSpan={6} className="sin-resultados">
+                  No se encontraron alumnos
+                </td>
               </tr>
-          ))}
+          )}
           </tbody>
         </table>
       </div>
